@@ -1,8 +1,4 @@
-.gradle
+.gradle/
 bin
 build
-.idea
-.classpath
-.project
-run/*
--run/.gitkeep
+.idea/
