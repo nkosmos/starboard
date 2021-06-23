@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.ToString;
 import fr.nkosmos.starboard.constraint.ValueConstraint;
 import fr.nkosmos.starboard.constraint.VisibilityConstraint;
-import lombok.experimental.Accessors;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -29,11 +28,11 @@ public class Setting<T> implements ISetting<T> {
 
     private T value;
 
-    public Setting(SettingCategory category, String name, T defaultValue) {
+    public Setting(SettingGroup category, String name, T defaultValue) {
         this(category, name, guessType(defaultValue), defaultValue);
     }
 
-    public Setting(SettingCategory category, String name, SettingType type, T defaultValue) {
+    public Setting(SettingGroup category, String name, SettingType type, T defaultValue) {
         this.name = name;
         this.type = type;
         this.defaultValue = defaultValue;

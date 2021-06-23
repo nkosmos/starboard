@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.ServiceLoader;
 
 public @Data
-class SettingCategory {
+class SettingGroup {
 
     private final String name;
     private final Object parent;
@@ -15,21 +15,21 @@ class SettingCategory {
 
     private final List<ISetting<?>> settings = new ArrayList<>();
 
-    public SettingCategory(String name, Object parent) {
+    public SettingGroup(String name, Object parent) {
         this(name, parent, false);
     }
 
-    public SettingCategory(String name, Object parent, boolean root) {
+    public SettingGroup(String name, Object parent, boolean root) {
         this.name = name;
         this.parent = parent;
         this.root = root;
 
-        ListenerProvider.INSTANCE.dispatchNewCategory(this);
+        ListenerProvider.INSTANCE.dispatchGroup(this);
     }
 
     @FunctionalInterface
     public interface RegistrationListener {
-        void onNewCategory(SettingCategory settingCategory);
+        void onNewGroup(SettingGroup settingGroup);
     }
 
     private static final class ListenerProvider {
@@ -41,10 +41,10 @@ class SettingCategory {
             this.serviceLoader = ServiceLoader.load(RegistrationListener.class);
         }
 
-        void dispatchNewCategory(SettingCategory settingCategory) {
+        void dispatchGroup(SettingGroup settingGroup) {
             this.serviceLoader.reload();
 
-            this.serviceLoader.forEach(listener -> listener.onNewCategory(settingCategory));
+            this.serviceLoader.forEach(listener -> listener.onNewGroup(settingGroup));
         }
     }
 
