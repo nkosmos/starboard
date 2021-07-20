@@ -20,7 +20,7 @@ dependencies {
 
 ## Maven
 
-fuck off
+no.
 
 # Getting started
 
@@ -33,7 +33,7 @@ Groups are a way of... well grouping setting together. They can be declared as s
 ```java
 public class MyClass {
 
-    private final SettingGroup defaultGroup = new SettingGroup("Default Group", this);
+    private final Group defaultGroup = new Group("Default Group", this);
 
 }
 ```
@@ -43,8 +43,8 @@ Groups can also have parent/child groups:
 ```java
 public class MyOtherClass {
 
-    private final SettingGroup parentGroup = new SettingGroup("Root Group", this);
-    private final SettingGroup childGroup = new SettingGroup("Subgroup", this, parentGroup);
+    private final Group parentGroup = new Group("Root Group", this);
+    private final Group childGroup = new Group("Subgroup", this, parentGroup);
 
 }
 ```
@@ -56,7 +56,7 @@ Settings can be declared under groups, and capture their value type as such:
 ```java
 public class AnotherClass {
 
-    private final SettingGroup defaultGroup = new SettingGroup("Default Group", this);
+    private final Group defaultGroup = new Group("Default Group", this);
 
     private final Setting<String> nameSetting = new Setting<>(defaultGroup, "Name", "Tommy");
     private final Setting<Integer> ageSetting = new Setting<>(defaultGroup, "Age", 18);

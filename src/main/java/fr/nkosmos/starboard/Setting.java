@@ -28,16 +28,16 @@ public class Setting<T> implements ISetting<T> {
 
     private T value;
 
-    public Setting(SettingGroup category, String name, T defaultValue) {
+    public Setting(Group category, String name, T defaultValue) {
         this(category, name, guessType(defaultValue), defaultValue);
     }
 
-    public Setting(SettingGroup category, String name, SettingType type, T defaultValue) {
+    public Setting(Group group, String name, SettingType type, T defaultValue) {
         this.name = name;
         this.type = type;
         this.defaultValue = defaultValue;
 
-        category.getSettings().add(this);
+        group.getSettings().add(this);
     }
 
     private static SettingType guessType(Object value) {
