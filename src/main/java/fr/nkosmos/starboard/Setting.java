@@ -42,7 +42,7 @@ public class Setting<T> implements ISetting<T> {
 
     private static SettingType guessType(Object value) {
         Class<?> clazz = value.getClass();
-        if (clazz.isEnum() || clazz.isArray()) {
+        if (Arrays.asList(clazz.getInterfaces()).contains(ISettingEnum.class)) {
             return SettingType.DROPDOWN;
         }
         return Arrays.stream(SettingType.values())

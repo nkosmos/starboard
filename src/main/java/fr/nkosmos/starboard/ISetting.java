@@ -1,5 +1,6 @@
 package fr.nkosmos.starboard;
 
+import fr.nkosmos.starboard.constraint.special.ValueCallback;
 import fr.nkosmos.starboard.constraint.visibility.BooleanConstraint;
 import fr.nkosmos.starboard.constraint.visibility.SettingValueConstraint;
 import fr.nkosmos.starboard.constraint.ValueConstraint;
@@ -39,6 +40,11 @@ public interface ISetting<T> {
 
     default <K extends ISetting<T>> K values(T... choices) {
         this.getValueConstraints().add(new ChoiceConstraint<>(choices));
+        return (K) this;
+    }
+
+    default <K extends ISetting<T>> K callback(ValueCallback<T> callback) {
+        this.getValueConstraints().add(callback);
         return (K) this;
     }
 
