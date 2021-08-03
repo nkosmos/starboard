@@ -1,5 +1,6 @@
 package fr.nkosmos.starboard;
 
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -10,23 +11,19 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter
 @ToString
 @EqualsAndHashCode
 public class Setting<T> implements ISetting<T> {
 
-    @Getter
     private final String name;
-    @Getter
     private final SettingType type;
-    @Getter
     private final T defaultValue;
 
-    @Getter
     private final Set<ValueConstraint<T>> valueConstraints = new HashSet<>();
-    @Getter
     private final Set<VisibilityConstraint> visibilityConstraints = new HashSet<>();
 
-    private T value;
+    @Getter(AccessLevel.PRIVATE) private T value;
 
     public Setting(Group category, String name, T defaultValue) {
         this(category, name, guessType(defaultValue), defaultValue);
@@ -37,7 +34,7 @@ public class Setting<T> implements ISetting<T> {
         this.type = type;
         this.defaultValue = defaultValue;
 
-        group.getSettings().add(this);
+        group.settings.add(this);
     }
 
     private static SettingType guessType(Object value) {
