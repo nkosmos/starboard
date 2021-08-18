@@ -14,7 +14,7 @@ public @Data class Group implements IGroup {
     private final boolean root;
 
     protected final List<ISetting<?>> settings = new ArrayList<>();
-    protected final List<Group> subgroups = new ArrayList<>();
+    protected final List<IGroup> subgroups = new ArrayList<>();
 
     public Group(String name) {
         this(name, null, false);
