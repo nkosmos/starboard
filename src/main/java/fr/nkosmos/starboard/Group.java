@@ -1,12 +1,13 @@
 package fr.nkosmos.starboard;
 
+import fr.nkosmos.starboard.api.IGroup;
 import fr.nkosmos.starboard.api.ISetting;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public @Data class Group {
+public @Data class Group implements IGroup {
 
     private final String name;
     private final Group parent;

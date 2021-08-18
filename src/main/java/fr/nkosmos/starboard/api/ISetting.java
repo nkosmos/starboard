@@ -1,13 +1,12 @@
 package fr.nkosmos.starboard.api;
 
-import fr.nkosmos.starboard.Group;
-import fr.nkosmos.starboard.constraint.special.ValueCallback;
+import fr.nkosmos.starboard.api.constraint.ValueConstraint;
+import fr.nkosmos.starboard.api.constraint.VisibilityConstraint;
+import fr.nkosmos.starboard.api.constraint.special.ValueCallback;
+import fr.nkosmos.starboard.constraint.value.ChoiceConstraint;
+import fr.nkosmos.starboard.constraint.value.CoerceConstraint;
 import fr.nkosmos.starboard.constraint.visibility.BooleanConstraint;
 import fr.nkosmos.starboard.constraint.visibility.SettingValueConstraint;
-import fr.nkosmos.starboard.constraint.ValueConstraint;
-import fr.nkosmos.starboard.constraint.VisibilityConstraint;
-import fr.nkosmos.starboard.constraint.value.CoerceConstraint;
-import fr.nkosmos.starboard.constraint.value.ChoiceConstraint;
 
 import java.util.Set;
 import java.util.function.Supplier;
@@ -24,7 +23,7 @@ public interface ISetting<T> {
 
     boolean isVisible();
 
-    Group getParentGroup();
+    IGroup getParentGroup();
 
     Set<ValueConstraint<T>> getValueConstraints();
 

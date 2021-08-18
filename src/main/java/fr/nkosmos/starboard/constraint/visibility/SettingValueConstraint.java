@@ -1,7 +1,7 @@
 package fr.nkosmos.starboard.constraint.visibility;
 
 import fr.nkosmos.starboard.api.ISetting;
-import fr.nkosmos.starboard.constraint.VisibilityConstraint;
+import fr.nkosmos.starboard.api.constraint.VisibilityConstraint;
 import lombok.Data;
 
 public @Data class SettingValueConstraint implements VisibilityConstraint {

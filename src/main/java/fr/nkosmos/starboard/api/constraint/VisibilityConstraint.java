@@ -1,4 +1,4 @@
-package fr.nkosmos.starboard.constraint;
+package fr.nkosmos.starboard.api.constraint;
 
 import fr.nkosmos.starboard.api.ISetting;
 

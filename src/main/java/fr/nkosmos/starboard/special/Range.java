@@ -28,7 +28,7 @@ public class Range<T extends Comparable<T>> {
             return that.compareTo(higherBound) == 0;
         }
 
-        if(strictEqual){
+        if (strictEqual) {
             return this.lowerBound.compareTo(that) < 0
                     && this.higherBound.compareTo(that) > 0;
         }

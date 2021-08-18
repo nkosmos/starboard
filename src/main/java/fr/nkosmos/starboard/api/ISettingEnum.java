@@ -1,4 +1,4 @@
-package fr.nkosmos.starboard.special;
+package fr.nkosmos.starboard.api;
 
 public interface ISettingEnum {
     String getName();

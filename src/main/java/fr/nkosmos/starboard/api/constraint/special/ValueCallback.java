@@ -1,7 +1,7 @@
-package fr.nkosmos.starboard.constraint.special;
+package fr.nkosmos.starboard.api.constraint.special;
 
 import fr.nkosmos.starboard.api.ISetting;
-import fr.nkosmos.starboard.constraint.ValueConstraint;
+import fr.nkosmos.starboard.api.constraint.ValueConstraint;
 
 @FunctionalInterface
 public interface ValueCallback<T> extends ValueConstraint<T> {

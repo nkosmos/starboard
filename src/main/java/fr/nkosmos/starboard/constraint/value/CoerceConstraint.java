@@ -1,7 +1,7 @@
 package fr.nkosmos.starboard.constraint.value;
 
 import fr.nkosmos.starboard.api.ISetting;
-import fr.nkosmos.starboard.constraint.ValueConstraint;
+import fr.nkosmos.starboard.api.constraint.ValueConstraint;
 import lombok.Data;
 
 public @Data class CoerceConstraint implements ValueConstraint<Number> {
