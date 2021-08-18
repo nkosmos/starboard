@@ -5,16 +5,12 @@ import fr.nkosmos.starboard.api.ISetting;
 import fr.nkosmos.starboard.api.constraint.ValueConstraint;
 import fr.nkosmos.starboard.api.constraint.VisibilityConstraint;
 import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Getter
-@ToString
-@EqualsAndHashCode
 public class Setting<T> implements ISetting<T> {
 
     private final String name;
