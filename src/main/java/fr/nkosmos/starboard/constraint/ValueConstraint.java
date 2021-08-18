@@ -1,6 +1,6 @@
 package fr.nkosmos.starboard.constraint;
 
-import fr.nkosmos.starboard.ISetting;
+import fr.nkosmos.starboard.api.ISetting;
 
 @FunctionalInterface
 public interface ValueConstraint<T> {

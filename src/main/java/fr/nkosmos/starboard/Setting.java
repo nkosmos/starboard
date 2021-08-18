@@ -1,13 +1,13 @@
 package fr.nkosmos.starboard;
 
+import fr.nkosmos.starboard.api.ISetting;
+import fr.nkosmos.starboard.constraint.ValueConstraint;
+import fr.nkosmos.starboard.constraint.VisibilityConstraint;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-import fr.nkosmos.starboard.constraint.ValueConstraint;
-import fr.nkosmos.starboard.constraint.VisibilityConstraint;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,35 +17,20 @@ import java.util.Set;
 public class Setting<T> implements ISetting<T> {
 
     private final String name;
-    private final SettingType type;
     private final T defaultValue;
+    private final Group parentGroup;
 
     private final Set<ValueConstraint<T>> valueConstraints = new HashSet<>();
     private final Set<VisibilityConstraint> visibilityConstraints = new HashSet<>();
 
     @Getter(AccessLevel.PRIVATE) private T value;
 
-    public Setting(Group category, String name, T defaultValue) {
-        this(category, name, guessType(defaultValue), defaultValue);
-    }
-
-    public Setting(Group group, String name, SettingType type, T defaultValue) {
+    public Setting(Group parentGroup, String name, T defaultValue) {
+        this.parentGroup = parentGroup;
         this.name = name;
-        this.type = type;
         this.defaultValue = defaultValue;
 
-        group.settings.add(this);
-    }
-
-    private static SettingType guessType(Object value) {
-        Class<?> clazz = value.getClass();
-        if (Arrays.asList(clazz.getInterfaces()).contains(ISettingEnum.class)) {
-            return SettingType.DROPDOWN;
-        }
-        return Arrays.stream(SettingType.values())
-                .filter(t -> t.getClazz().equals(clazz))
-                .findFirst()
-                .orElse(null);
+        this.parentGroup.settings.add(this);
     }
 
     @Override

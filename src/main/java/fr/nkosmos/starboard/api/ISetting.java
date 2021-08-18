@@ -1,5 +1,6 @@
-package fr.nkosmos.starboard;
+package fr.nkosmos.starboard.api;
 
+import fr.nkosmos.starboard.Group;
 import fr.nkosmos.starboard.constraint.special.ValueCallback;
 import fr.nkosmos.starboard.constraint.visibility.BooleanConstraint;
 import fr.nkosmos.starboard.constraint.visibility.SettingValueConstraint;
@@ -19,11 +20,11 @@ public interface ISetting<T> {
 
     T getDefaultValue();
 
-    SettingType getType();
-
     void set(T value);
 
     boolean isVisible();
+
+    Group getParentGroup();
 
     Set<ValueConstraint<T>> getValueConstraints();
 
@@ -48,7 +49,7 @@ public interface ISetting<T> {
         return (K) this;
     }
 
-    default <K extends ISetting<T>> K onlyIf(Setting<Boolean>... booleanSettings) {
+    default <K extends ISetting<T>> K onlyIf(ISetting<Boolean>... booleanSettings) {
         Supplier<Boolean>[] arr = new Supplier[booleanSettings.length];
 
         // wierd hack to get around ClassCastException when using the Stream API
@@ -65,7 +66,7 @@ public interface ISetting<T> {
         return (K) this;
     }
 
-    default <K extends ISetting<T>> K onlyWhen(Setting<?> setting, Object value) {
+    default <K extends ISetting<T>> K onlyWhen(ISetting<?> setting, Object value) {
         this.getVisibilityConstraints().add(new SettingValueConstraint(setting, value));
         return (K) this;
     }

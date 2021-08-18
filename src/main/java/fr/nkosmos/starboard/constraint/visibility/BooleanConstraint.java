@@ -1,8 +1,8 @@
 package fr.nkosmos.starboard.constraint.visibility;
 
-import lombok.*;
-import fr.nkosmos.starboard.Setting;
+import fr.nkosmos.starboard.api.ISetting;
 import fr.nkosmos.starboard.constraint.VisibilityConstraint;
+import lombok.Data;
 
 import java.util.Arrays;
 import java.util.function.Supplier;
@@ -12,7 +12,7 @@ public @Data class BooleanConstraint implements VisibilityConstraint {
     private final Supplier<Boolean>[] booleanSuppliers;
 
     @Override
-    public boolean allowVisibility(Setting<?> setting) {
+    public boolean allowVisibility(ISetting<?> setting) {
         return Arrays.stream(booleanSuppliers).anyMatch(Supplier::get);
     }
 }

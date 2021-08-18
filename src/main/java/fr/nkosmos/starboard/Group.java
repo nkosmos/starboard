@@ -1,26 +1,35 @@
 package fr.nkosmos.starboard;
 
+import fr.nkosmos.starboard.api.ISetting;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor
-public @Data class Group implements IGroupParent {
+public @Data class Group {
 
     private final String name;
-    private final IGroupParent parent;
+    private final Group parent;
     private final boolean root;
 
     protected final List<ISetting<?>> settings = new ArrayList<>();
     protected final List<Group> subgroups = new ArrayList<>();
 
-    public Group(String name, IGroupParent parent) {
-        this(name, parent, false);
+    public Group(String name) {
+        this(name, null, false);
+    }
 
-        if (parent instanceof Group) {
-            ((Group) parent).subgroups.add(this);
+    public Group(String name, Group parent) {
+        this(name, parent, false);
+    }
+
+    public Group(String name, Group parent, boolean root) {
+        this.name = name;
+        this.parent = parent;
+        this.root = root;
+
+        if (parent != null) {
+            parent.getSubgroups().add(this);
         }
     }
 }
