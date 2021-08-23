@@ -4,6 +4,7 @@ import fr.nkosmos.starboard.api.IGroup;
 import fr.nkosmos.starboard.api.ISetting;
 import fr.nkosmos.starboard.api.constraint.ValueConstraint;
 import fr.nkosmos.starboard.api.constraint.VisibilityConstraint;
+import fr.nkosmos.starboard.api.constraint.special.ValueCallback;
 import lombok.AccessLevel;
 import lombok.Getter;
 
@@ -20,7 +21,8 @@ public class Setting<T> implements ISetting<T> {
     private final Set<ValueConstraint<T>> valueConstraints = new HashSet<>();
     private final Set<VisibilityConstraint> visibilityConstraints = new HashSet<>();
 
-    @Getter(AccessLevel.PRIVATE) private T value;
+    @Getter(AccessLevel.PRIVATE)
+    private T value;
 
     public Setting(IGroup parentGroup, String name, T defaultValue) {
         this.parentGroup = parentGroup;
@@ -39,7 +41,7 @@ public class Setting<T> implements ISetting<T> {
     }
 
     @Override
-    public void set(T value) {
+    public void set(final T value, final boolean triggerCallbacks) {
         if (valueConstraints.isEmpty()) {
             this.value = value;
             return;
@@ -47,6 +49,11 @@ public class Setting<T> implements ISetting<T> {
 
         T val = value;
         for (ValueConstraint<T> constraint : valueConstraints) {
+            if (!triggerCallbacks) {
+                if (constraint instanceof ValueCallback) {
+                    continue;
+                }
+            }
             val = constraint.constraint(this, val);
         }
         this.value = val;

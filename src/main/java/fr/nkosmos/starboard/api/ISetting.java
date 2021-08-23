@@ -5,10 +5,12 @@ import fr.nkosmos.starboard.api.constraint.VisibilityConstraint;
 import fr.nkosmos.starboard.api.constraint.special.ValueCallback;
 import fr.nkosmos.starboard.constraint.value.ChoiceConstraint;
 import fr.nkosmos.starboard.constraint.value.CoerceConstraint;
+import fr.nkosmos.starboard.constraint.value.PredicateConstraint;
 import fr.nkosmos.starboard.constraint.visibility.BooleanConstraint;
 import fr.nkosmos.starboard.constraint.visibility.SettingValueConstraint;
 
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public interface ISetting<T> {
@@ -19,7 +21,11 @@ public interface ISetting<T> {
 
     T getDefaultValue();
 
-    void set(T value);
+    default void set(T value) {
+        set(value, true);
+    }
+
+    void set(T value, boolean triggerCallbacks);
 
     boolean isVisible();
 
@@ -40,6 +46,11 @@ public interface ISetting<T> {
 
     default <K extends ISetting<T>> K values(T... choices) {
         this.getValueConstraints().add(new ChoiceConstraint<>(choices));
+        return (K) this;
+    }
+
+    default <K extends ISetting<T>> K allowOnly(Predicate<T>... predicates) {
+        this.getValueConstraints().add(new PredicateConstraint<>(predicates));
         return (K) this;
     }
 
